@@ -17,7 +17,7 @@ import {
 
 export type ScreenWrapperProps = {
   style?: ViewStyle;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 export type ModalWrapperProps = {
   style?: ViewStyle;
@@ -35,7 +35,7 @@ export type TypoProps = {
   size?: number;
   color?: string;
   fontWeight?: TextStyle["fontWeight"];
-  children: any | null;
+  children?: any | null;
   style?: TextStyle;
   textProps?: TextProps;
 };
@@ -116,7 +116,7 @@ export interface CustomButtonProps extends TouchableOpacityProps {
   style?: ViewStyle;
   onPress?: () => void;
   loading?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export type ImageUploadProps = {

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import BackButton from "@/components/BackButton";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
@@ -6,14 +7,23 @@ import Typo from "@/components/Typo";
 import { colors, spacingX, spacingY } from "@/constants/theme";
 import { verticalScale } from "@/utils/styling";
 import React, { useRef, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
+import * as Icons from "phosphor-react-native";
+import { useRouter } from "expo-router";
 
 const Login = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const [isLoading, setIsLoading] = useState(true);
-
-  const handleSubmit = async () => {};
+  const router = useRouter();
+  const handleSubmit = async () => {
+    if (!emailRef.current || !passwordRef.current) {
+      Alert.alert("Login", "Please fill in all fields");
+      return;
+    }
+    console.log("emailRef.current", emailRef.current);
+    console.log("passwordRef.current", passwordRef.current);
+  };
 
   return (
     <ScreenWrapper>
@@ -36,11 +46,27 @@ const Login = () => {
 
           <Input
             placeholder="Enter your email"
+            secureTextEntry
             onChangeText={(value) => (emailRef.current = value)}
+            icon={
+              <Icons.At
+                size={verticalScale(26)}
+                color={colors.neutral300}
+                weight="fill"
+              />
+            }
           />
           <Input
             placeholder="Enter your password"
+            secureTextEntry
             onChangeText={(value) => (passwordRef.current = value)}
+            icon={
+              <Icons.Lock
+                size={verticalScale(26)}
+                color={colors.neutral300}
+                weight="fill"
+              />
+            }
           />
 
           <Typo size={14} color={colors.text} style={{ alignSelf: "flex-end" }}>
@@ -52,6 +78,14 @@ const Login = () => {
               Login
             </Typo>
           </Button>
+        </View>
+        <View style={styles.footer}>
+          <Typo size={15}>Don't have an account?</Typo>
+          <Pressable onPress={() => router.push("/(auth)/register")}>
+            <Typo size={15} fontWeight={"700"} color={colors.primary}>
+              Sign up
+            </Typo>
+          </Pressable>
         </View>
       </View>
     </ScreenWrapper>
